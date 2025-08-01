@@ -2,8 +2,8 @@ MODEL_PACKAGE_HOME = $(PWD)
 
 include $(MODEL_PACKAGE_HOME)/makefiles/glfw.mk
 
-TRICK_CFLAGS += -g -std=c++17 -I./models -I./glfw/include/ -I./models/imgui -I./models/imgui/backends
-TRICK_CXXFLAGS += -g  -std=c++17 -I./models -I./glfw/include/ -I./models/imgui -I./models/imgui/backends
+TRICK_CFLAGS += -g -std=c++17 -I./models -I./glfw/include/ -I./imgui -I./imgui/backends -I./imgui/misc/cpp
+TRICK_CXXFLAGS += -g  -std=c++17 -I./models -I./glfw/include/ -I./imgui -I./imgui/backends -I./imgui/misc/cpp
 
 TRICK_LDFLAGS += -L/glfw/build/src 
 TRICK_USER_LINK_LIBS += glfw/build/src/libglfw3.a -lGL
