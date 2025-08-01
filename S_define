@@ -1,0 +1,62 @@
+#include "sim_objects/default_trick_sys.sm"
+
+
+##include "threads/include/UIThread.hh"
+##include "threads/include/test_struct.hh"
+
+class TestSimObject : public Trick::SimObject
+{
+    double var_test = 0.5;
+    TestStruct test_struct;
+    
+    public:
+    TestSimObject()
+    {
+
+    }
+
+
+};
+
+TestSimObject test_so;
+
+
+class UISimObject : public Trick::SimObject
+{
+    public:
+    UIThread* ui_thread;
+
+    //Set from input file
+    UI::WindowProperties windowProperties;
+    UISimObject()
+    {
+        ui_thread = new UIThread;
+
+        ("initialization") ui_thread->GetMMInterface()->SetInterfacePointer(trick_MM);
+        ("initialization") ui_thread->GetExecInterface()->SetInterfacePointer(the_exec);
+        
+        C1 ("automatic") ui_thread->Run(windowProperties);
+
+        C1 ("shutdown") ui_thread->Shutdown();
+
+        (0.01, "scheduled") updateFromMain();
+
+    }
+
+    void updateFromMain()
+    {
+        ui_thread->UpdateSimTime(the_exec->get_sim_time());   
+    }
+
+};
+
+UISimObject ui;
+
+// Connect objects
+void create_connections() {
+
+    // Set the default termination time
+    exec_set_freeze_frame(1.0) ;
+
+}
+
