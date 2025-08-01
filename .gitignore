@@ -7,3 +7,10 @@ S_source.hh
 build
 makefile
 trick.zip
+
+
+
+RUN_test/S_job_execution
+RUN_test/S_run_summary
+RUN_test/Title
+RUN_test/varserver_log
